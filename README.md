@@ -18,6 +18,9 @@ The application currently supports the following languages:
 * Recipe Management: Save your calculations to text files.
 * Portable Version: Standalone .exe file available (no Python installation required).
 
+## 🖼️ Screenshot
+![Main Window](assets/screenshot_main.png)
+
 ## 🛠️ Tech Stack
 * Language: Python 3.x
 * GUI Framework: PyQt6
