@@ -1,0 +1,15 @@
+# Środowisko wirtualne
+venv312/
+
+# Pliki i foldery Nuitki
+*.build/
+*.dist/
+*.onefile-build/
+nuitka-crash-report.xml
+
+# Plik wykonywalny (EXE wrzucimy osobno w Releases)
+*.exe
+
+# Cache Pythona
+*.pyc
+__pycache__/
