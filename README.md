@@ -1,40 +1,39 @@
-# Liquid Calculator 🧪💨
+# Liquid Lab 🧪💨
 
-Aplikacja desktopowa do precyzyjnego obliczania proporcji składników przy tworzeniu własnych e-liquidów. Program zbudowany w Pythonie z nowoczesnym interfejsem PyQt6.
+Desktop application for precision e-liquid mixing. Calculate base, nicotine shots, and aroma proportions with ease and accuracy.
 
-## 🚀 Funkcje
-- **Precyzyjne obliczenia:** Wylicza dokładną ilość bazy, shotów oraz aromatów.
-- **Nowoczesne GUI:** Interfejs PyQt6 zapewniający płynne działanie.
-- **Wersja Portable:** Możliwość pobrania gotowego pliku .exe (skompilowanego Nuitką), który nie wymaga instalacji Pythona.
+## 🌍 Multilingual Support
+The application currently supports the following languages:
+* 🇵🇱 Polish
+* 🇺🇸 English
+* 🇩🇪 German
+* 🇫🇷 French
+* 🇪🇸 Spanish
+* 🇮🇹 Italian
 
-## 🛠️ Technologia
-- **Język:** Python 3.x
-- **Framework GUI:** PyQt6
-- **Kompilacja:** Nuitka (Standalone executable)
+> Note: I am planning to add more languages in future updates. Stay tuned!
+## 🚀 Key Features
+* Precise Calculations: Accurate volume and weight (grams) calculations for PG/VG bases, nicotine shots, and aromas.
+* Dynamic Interface: Built with PyQt6 for a smooth and responsive user experience.
+* Recipe Management: Save your calculations to text files.
+* Portable Version: Standalone .exe file available (no Python installation required).
 
-## 📦 Pobieranie (Gotowy Program)
-Jeśli nie chcesz uruchamiać kodu źródłowego, gotowy plik `.exe` znajdziesz w sekcji **[Releases](https://github.com/gynsior/liquid-calculator/releases)** po prawej stronie repozytorium.
+## 🛠️ Tech Stack
+* Language: Python 3.x
+* GUI Framework: PyQt6
+* Compilation: Nuitka (Standalone executable)
 
-## 🔧 Uruchamianie z kodu źródłowego
-1. Sklonuj repozytorium: `git clone https://github.com/gynsior/liquid-calculator.git`
-2. Zainstaluj wymagane biblioteki: `pip install PyQt6`
-3. Uruchom: `python main.py`
+## 📦 Download (Ready to use)
+If you do not want to run the source code, you can download the latest standalone .exe from the Releases section on the right side of this repository.
 
-## 🔧 Instalacja i uruchomienie
-1. Upewnij się, że masz zainstalowanego Pythona (zalecany 3.10+).
-2. Sklonuj repozytorium:
-Bash
-git clone [https://github.com/gynsior/liquid-calculator.git](https://github.com/gynsior/liquid-calculator.git)
+## 🔧 Running from Source
+1. Clone the repository: `git clone https://github.com/gynsior/liquid-calculator.git`
+2. Install requirements: `pip install -r requirements.txt`
+3. Run the app: `python liquid.pyw`
 
-Zainstaluj wymagane biblioteki:
+## 👨‍💻 Author
+* Piotr Gałęziok
+* GitHub: @gynsior
 
-Bash
-pip install -r requirements.txt
-
-Uruchom aplikację:
-
-Bash
-python liquid.pyw
-
-## 👨‍💻 Autor
-GitHub: [@gynsior](https://github.com/gynsior)
+---
+*Created for DIY Vapers & Mixing Enthusiasts.*

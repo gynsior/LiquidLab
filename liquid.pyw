@@ -8,7 +8,6 @@ from PyQt6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout,
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QAction, QIcon
 
-# UKRYWANIE KONSOLI (Dla Windows EXE)
 def hide_console():
     if os.name == 'nt':
         console_window = ctypes.windll.kernel32.GetConsoleWindow()
@@ -43,7 +42,8 @@ class LiquidLab(QMainWindow):
                 "legend_bal": "Balanced. Standard for most devices.", "error": "COMPOSITION ERROR!",
                 "error_desc": "Not physically possible. Decrease VG or use stronger shot.",
                 "save_title": "Save Recipe", "summary": "SUMMARY", "recipe": "RECIPE", "ingredients": "INGREDIENTS",
-                "grams": "GRAMS", "total": "TOTAL", "ignored": "Ignored in ratio"
+                "grams": "GRAMS", "total": "TOTAL", "ignored": "Ignored in ratio",
+                "aroma_res": "Aroma", "nic_shot": "Nic Shot", "pure_vg": "Pure VG", "pure_pg": "Pure PG"
             },
             "PL": {
                 "title": "Liquid Lab", "recipe_info": "Informacje o przepisie", "name": "Nazwa/Nr:", 
@@ -56,7 +56,8 @@ class LiquidLab(QMainWindow):
                 "legend_bal": "Zbalansowany. Standard do większości urządzeń.", "error": "BŁĄD SKŁADU!",
                 "error_desc": "Niemożliwe do uzyskania. Zmniejsz VG lub użyj mocniejszego shota.",
                 "save_title": "Zapisz recepturę", "summary": "PARAMETRY", "recipe": "RECEPTURA", "ingredients": "SKŁADNIKI",
-                "grams": "GRAMY", "total": "SUMA", "ignored": "Zignorowano w ratio"
+                "grams": "GRAMY", "total": "SUMA", "ignored": "Zignorowano w ratio",
+                "aroma_res": "Aromat", "nic_shot": "Nic Shot", "pure_vg": "Czyste VG", "pure_pg": "Czyste PG"
             },
             "DE": {
                 "title": "Liquid Lab", "recipe_info": "Rezept-Info", "name": "Name/Nr:", 
@@ -69,7 +70,8 @@ class LiquidLab(QMainWindow):
                 "legend_bal": "Ausgewogen. Standard für die meisten Geräte.", "error": "ZUSAMMENSETZUNGSFEHLER!",
                 "error_desc": "Nicht möglich. Weniger VG oder stärkeren Shot verwenden.",
                 "save_title": "Rezept speichern", "summary": "ZUSAMMENFASSUNG", "recipe": "REZEPT", "ingredients": "ZUTATEN",
-                "grams": "GRAMM", "total": "GESAMT", "ignored": "Im Verhältnis ignoriert"
+                "grams": "GRAMM", "total": "GESAMT", "ignored": "Im Verhältnis ignoriert",
+                "aroma_res": "Aroma", "nic_shot": "Nikotinshot", "pure_vg": "Reines VG", "pure_pg": "Reines PG"
             },
             "FR": {
                 "title": "Liquid Lab", "recipe_info": "Infos Recette", "name": "Nom/No:", 
@@ -82,7 +84,8 @@ class LiquidLab(QMainWindow):
                 "legend_bal": "Équilibré. Standard pour la plupart des appareils.", "error": "ERREUR DE COMPOSITION!",
                 "error_desc": "Pas possible. Réduisez la VG ou utilisez un booster plus fort.",
                 "save_title": "Enregistrer la recette", "summary": "RÉSUMÉ", "recipe": "RECETTE", "ingredients": "INGRÉDIENTS",
-                "grams": "GRAMMES", "total": "TOTAL", "ignored": "Ignoré dans le ratio"
+                "grams": "GRAMMES", "total": "TOTAL", "ignored": "Ignoré dans le ratio",
+                "aroma_res": "Arôme", "nic_shot": "Booster Nic", "pure_vg": "VG Pure", "pure_pg": "PG Pure"
             },
             "ES": {
                 "title": "Liquid Lab", "recipe_info": "Info Receta", "name": "Nombre/No:", 
@@ -95,7 +98,8 @@ class LiquidLab(QMainWindow):
                 "legend_bal": "Equilibrado. Estándar para la mayoría de dispositivos.", "error": "¡ERROR DE COMPOSICIÓN!",
                 "error_desc": "No es posible. Reduzca el VG o use un nicokit más fuerte.",
                 "save_title": "Guardar Receta", "summary": "RESUMEN", "recipe": "RECETA", "ingredients": "INGREDIENTES",
-                "grams": "GRAMOS", "total": "TOTAL", "ignored": "Ignorado en ratio"
+                "grams": "GRAMOS", "total": "TOTAL", "ignored": "Ignorado en ratio",
+                "aroma_res": "Aroma", "nic_shot": "Nicokit", "pure_vg": "VG Puro", "pure_pg": "PG Puro"
             },
             "IT": {
                 "title": "Liquid Lab", "recipe_info": "Info Ricetta", "name": "Nome/No:", 
@@ -108,7 +112,8 @@ class LiquidLab(QMainWindow):
                 "legend_bal": "Bilanciato. Standard per la maggior parte dei dispositivi.", "error": "ERRORE DI COMPOSIZIONE!",
                 "error_desc": "Non possibile. Ridurre il VG o usare un nicokit più forte.",
                 "save_title": "Salva Ricetta", "summary": "RIEPILOGO", "recipe": "RICETTA", "ingredients": "INGREDIENTI",
-                "grams": "GRAMMI", "total": "TOTALE", "ignored": "Ignorato nel rapporto"
+                "grams": "GRAMMI", "total": "TOTALE", "ignored": "Ignorato nel rapporto",
+                "aroma_res": "Aroma", "nic_shot": "Basetta Nic", "pure_vg": "VG Puro", "pure_pg": "PG Puro"
             }
         }
 
@@ -223,13 +228,11 @@ class LiquidLab(QMainWindow):
         self.current_lang = lang
         t = self.translations[lang]
         
-        # Tytuły
         self.setWindowTitle(f"{t.get('title', 'Liquid Lab')} v{self.version}")
         self.info_group.setTitle(t.get('recipe_info', ''))
         self.target_group.setTitle(t.get('target_params', ''))
         self.stock_group.setTitle(t.get('stock', ''))
-        
-        # Etykiety
+
         self.lbl_name.setText(t.get('name', ''))
         self.lbl_brand.setText(t.get('brand', ''))
         self.lbl_vol.setText(t.get('vol', ''))
@@ -239,8 +242,7 @@ class LiquidLab(QMainWindow):
         self.lbl_shot_ratio.setText(t.get('shot_ratio', ''))
         self.lbl_aroma_pct.setText(t.get('aroma_pct', ''))
         self.lbl_aroma_base.setText(t.get('aroma_base', ''))
-        
-        # Przyciski
+
         self.calc_btn.setText(t.get('calc', ''))
         self.save_btn.setText(t.get('save', ''))
         
@@ -261,7 +263,6 @@ class LiquidLab(QMainWindow):
         github_url = "https://github.com/gynsior/liquid-calculator"
         mail_url = "mailto:gynsior@gmail.com"
         
-        # Pobieranie ścieżki (bezpieczne dla EXE)
         if getattr(sys, 'frozen', False):
             base_path = os.path.dirname(sys.executable)
             if not os.path.exists(os.path.join(base_path, 'assets', 'icon.ico')):
@@ -274,13 +275,11 @@ class LiquidLab(QMainWindow):
         msg = QMessageBox(self)
         msg.setWindowTitle("About")
 
-        # Ustawienie natywnej ikony 48x48
         from PyQt6.QtGui import QIcon
         if os.path.exists(icon_path):
             pixmap = QIcon(icon_path).pixmap(128, 128)
             msg.setIconPixmap(pixmap)
 
-        # Treść HTML z precyzyjnym marginesem od ikony
         msg_text = (
             f"<div style='margin-left: 5px;'>"
             f"<h2 style='margin: 0;'>{self.translations[self.current_lang]['title']} v{self.version}</h2>"
@@ -296,8 +295,6 @@ class LiquidLab(QMainWindow):
         msg.setTextFormat(Qt.TextFormat.RichText)
         msg.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
         
-        # Klucz do sukcesu: Style Sheet, który wyrównuje marginesy okna
-        # margin-right balansuje miejsce zajęte przez ikonę po lewej
         msg.setStyleSheet("""
             QLabel#qt_msgbox_label { 
                 padding-left: 10px;
@@ -341,10 +338,10 @@ class LiquidLab(QMainWindow):
             
             res = f"{t['summary']}: {self.liquid_name.text()} | {v_tot}ml | {mg_t}mg\n"
             res += f"{'='*35}\n{t['recipe']} (ml | {t['grams']}):\n"
-            res += f"Aroma:      {v_aroma:>6.2f} ml | {w_aroma:>6.2f}g\n"
-            res += f"Nic Shot:   {v_nic:>6.2f} ml | {w_nic:>6.2f}g\n"
-            res += f"Pure VG:    {max(0,add_vg):>6.2f} ml | {w_vg:>6.2f}g\n"
-            res += f"Pure PG:    {max(0,add_pg):>6.2f} ml | {w_pg:>6.2f}g\n"
+            res += f"{t.get('aroma_res', 'Aroma'):<12} {v_aroma:>6.2f} ml | {w_aroma:>6.2f}g\n"
+            res += f"{t.get('nic_shot', 'Nic Shot'):<12} {v_nic:>6.2f} ml | {w_nic:>6.2f}g\n"
+            res += f"{t.get('pure_vg', 'Pure VG'):<12} {max(0,add_vg):>6.2f} ml | {w_vg:>6.2f}g\n"
+            res += f"{t.get('pure_pg', 'Pure PG'):<12} {max(0,add_pg):>6.2f} ml | {w_pg:>6.2f}g\n"
             res += f"{'-'*35}\n{t['total']}:      {v_tot:>6.2f} ml | {w_aroma+w_nic+w_vg+w_pg:>6.2f}g\n"
             self.results_display.setText(res); self.save_btn.setEnabled(True)
         except: self.results_display.setText("Error / Błąd")
