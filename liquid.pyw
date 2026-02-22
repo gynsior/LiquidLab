@@ -1,43 +1,39 @@
 import sys
-import datetime
 import os
 import ctypes
+from PyQt6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, 
+                             QLabel, QLineEdit, QPushButton, QGroupBox, 
+                             QFormLayout, QSlider, QTextEdit, QFileDialog, 
+                             QRadioButton, QMainWindow, QMessageBox)
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QIcon
 
 # UKRYWANIE KONSOLI (Dla Windows EXE)
 def hide_console():
     if os.name == 'nt':
-        # Pobiera uchwyt do okna konsoli
         console_window = ctypes.windll.kernel32.GetConsoleWindow()
         if console_window != 0:
-            # Ukrywa okno (0 = SW_HIDE)
             ctypes.windll.user32.ShowWindow(console_window, 0)
 
 hide_console()
-
-from PyQt6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, 
-                             QLabel, QLineEdit, QPushButton, QGroupBox, 
-                             QFormLayout, QSlider, QTextEdit, QFileDialog, 
-                             QRadioButton, QButtonGroup, QMainWindow, QMenu, QMessageBox)
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QAction
 
 class LiquidLab(QMainWindow):
     def __init__(self):
         super().__init__()
         self.version = "1.0"
         self.author = "Piotr Gałęziok"
-        self.website = "www.software.galeziok.com"
-        self.email = "software@galeziok.com"
+        self.website = "https://github.com/gynsior/liquid-calculator"
+        self.email = "mailto:gynsior@gmail.com"
         
         # Gęstości
         self.D_VG = 1.26
         self.D_PG = 1.04
         
         # Języki
-        self.current_lang = "EN"
+        self.current_lang = "PL"
         self.translations = {
             "EN": {
-                "title": "Liquid Lab Pro", "recipe_info": "Recipe Info", "name": "Name/No:", 
+                "title": "Liquid Lab", "recipe_info": "Recipe Info", "name": "Name/No:", 
                 "brand": "Aroma Brand:", "target_params": "Target Parameters", "vol": "Volume (ml):",
                 "strength": "Target Strength (mg/ml):", "ratio": "VG/PG Ratio:", "stock": "Your Ingredients",
                 "shot_str": "Shot Strength (mg):", "shot_ratio": "Shot Ratio (VG%):", "aroma_pct": "Aroma (%):",
@@ -50,7 +46,7 @@ class LiquidLab(QMainWindow):
                 "grams": "GRAMS", "total": "TOTAL", "ignored": "Ignored in ratio"
             },
             "PL": {
-                "title": "Liquid Lab Pro", "recipe_info": "Informacje o przepisie", "name": "Nazwa/Nr:", 
+                "title": "Liquid Lab", "recipe_info": "Informacje o przepisie", "name": "Nazwa/Nr:", 
                 "brand": "Producent aromatu:", "target_params": "Parametry docelowe", "vol": "Objętość (ml):",
                 "strength": "Moc docelowa (mg/ml):", "ratio": "Proporcje VG/PG:", "stock": "Twoje Składniki",
                 "shot_str": "Moc shota (mg):", "shot_ratio": "Ratio shota (VG%):", "aroma_pct": "Aromat (%):",
@@ -63,7 +59,7 @@ class LiquidLab(QMainWindow):
                 "grams": "GRAMY", "total": "SUMA", "ignored": "Zignorowano w ratio"
             },
             "DE": {
-                "title": "Liquid Lab Pro", "recipe_info": "Rezept-Info", "name": "Name/Nr:", 
+                "title": "Liquid Lab", "recipe_info": "Rezept-Info", "name": "Name/Nr:", 
                 "brand": "Aroma Marke:", "target_params": "Ziel-Parameter", "vol": "Volumen (ml):",
                 "strength": "Zielstärke (mg/ml):", "ratio": "VG/PG Verhältnis:", "stock": "Ihre Zutaten",
                 "shot_str": "Shot-Stärke (mg):", "shot_ratio": "Shot-Verhältnis (VG%):", "aroma_pct": "Aroma (%):",
@@ -76,7 +72,7 @@ class LiquidLab(QMainWindow):
                 "grams": "GRAMM", "total": "GESAMT", "ignored": "Im Verhältnis ignoriert"
             },
             "FR": {
-                "title": "Liquid Lab Pro", "recipe_info": "Infos Recette", "name": "Nom/No:", 
+                "title": "Liquid Lab", "recipe_info": "Infos Recette", "name": "Nom/No:", 
                 "brand": "Marque d'Arôme:", "target_params": "Paramètres Cibles", "vol": "Volume (ml):",
                 "strength": "Taux de Nicotine (mg/ml):", "ratio": "Ratio VG/PG:", "stock": "Vos Ingrédients",
                 "shot_str": "Taux du Booster (mg):", "shot_ratio": "Ratio du Booster (VG%):", "aroma_pct": "Arôme (%):",
@@ -89,7 +85,7 @@ class LiquidLab(QMainWindow):
                 "grams": "GRAMMES", "total": "TOTAL", "ignored": "Ignoré dans le ratio"
             },
             "ES": {
-                "title": "Liquid Lab Pro", "recipe_info": "Info Receta", "name": "Nombre/No:", 
+                "title": "Liquid Lab", "recipe_info": "Info Receta", "name": "Nombre/No:", 
                 "brand": "Marca Aroma:", "target_params": "Parámetros Objetivo", "vol": "Volumen (ml):",
                 "strength": "Fuerza Objetivo (mg/ml):", "ratio": "Relación VG/PG:", "stock": "Tus Ingredientes",
                 "shot_str": "Fuerza del Nicokit (mg):", "shot_ratio": "Ratio Nicokit (VG%):", "aroma_pct": "Aroma (%):",
@@ -102,7 +98,7 @@ class LiquidLab(QMainWindow):
                 "grams": "GRAMOS", "total": "TOTAL", "ignored": "Ignorado en ratio"
             },
             "IT": {
-                "title": "Liquid Lab Pro", "recipe_info": "Info Ricetta", "name": "Nome/No:", 
+                "title": "Liquid Lab", "recipe_info": "Info Ricetta", "name": "Nome/No:", 
                 "brand": "Marca Aroma:", "target_params": "Parametri Obiettivo", "vol": "Volume (ml):",
                 "strength": "Forza Obiettivo (mg/ml):", "ratio": "Rapporto VG/PG:", "stock": "I tuoi Ingredienti",
                 "shot_str": "Forza del Nicokit (mg):", "shot_ratio": "Ratio Nicokit (VG%):", "aroma_pct": "Aroma (%):",
@@ -122,19 +118,21 @@ class LiquidLab(QMainWindow):
         self.setWindowTitle(f"{self.translations[self.current_lang]['title']} v{self.version}")
         self.setMinimumWidth(650)
         
+        # ŁADOWANIE IKONY
+        icon_path = os.path.join(os.path.dirname(__file__), 'assets', 'icon.ico')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
+        
         # PASEK MENU
         menubar = self.menuBar()
-        
-        # Menu Języka
         lang_menu = menubar.addMenu('Language / Język')
         for lang in ["EN", "PL", "DE", "FR", "ES", "IT"]:
             action = QAction(lang, self)
             action.triggered.connect(lambda checked, l=lang: self.change_lang(l))
             lang_menu.addAction(action)
             
-        # Menu Info
         info_menu = menubar.addMenu('?')
-        about_action = QAction('About / O programie', self)
+        about_action = QAction('About', self)
         about_action.triggered.connect(self.show_about)
         info_menu.addAction(about_action)
 
@@ -163,14 +161,19 @@ class LiquidLab(QMainWindow):
         self.mg_target = QLineEdit("6")
         self.ratio_slider = QSlider(Qt.Orientation.Horizontal)
         self.ratio_slider.setRange(0, 100); self.ratio_slider.setValue(70)
+        
+        self.lbl_vol = QLabel(self.translations[self.current_lang]['vol'])
+        self.lbl_strength = QLabel(self.translations[self.current_lang]['strength'])
+        self.lbl_ratio_title = QLabel(self.translations[self.current_lang]['ratio'])
         self.ratio_label = QLabel("70% VG / 30% PG")
         self.legend_label = QLabel(self.translations[self.current_lang]['legend_vg'])
         self.legend_label.setStyleSheet("color: #666; font-size: 10px;")
+        
         self.ratio_slider.valueChanged.connect(self.update_labels)
         
-        target_layout.addRow(self.translations[self.current_lang]['vol'], self.v_total)
-        target_layout.addRow(self.translations[self.current_lang]['strength'], self.mg_target)
-        target_layout.addRow(self.translations[self.current_lang]['ratio'], self.ratio_slider)
+        target_layout.addRow(self.lbl_vol, self.v_total)
+        target_layout.addRow(self.lbl_strength, self.mg_target)
+        target_layout.addRow(self.lbl_ratio_title, self.ratio_slider)
         target_layout.addRow("", self.ratio_label)
         target_layout.addRow("", self.legend_label)
         self.target_group.setLayout(target_layout)
@@ -183,18 +186,24 @@ class LiquidLab(QMainWindow):
         self.aroma_pct = QLineEdit("10")
         self.nic_ratio_slider = QSlider(Qt.Orientation.Horizontal)
         self.nic_ratio_slider.setRange(0, 100); self.nic_ratio_slider.setValue(50)
+        
+        self.lbl_shot_str = QLabel(self.translations[self.current_lang]['shot_str'])
+        self.lbl_shot_ratio = QLabel(self.translations[self.current_lang]['shot_ratio'])
+        self.lbl_aroma_pct = QLabel(self.translations[self.current_lang]['aroma_pct'])
+        self.lbl_aroma_base = QLabel(self.translations[self.current_lang]['aroma_base'])
         self.nic_ratio_label = QLabel("50/50")
+        
         self.nic_ratio_slider.valueChanged.connect(self.update_labels)
 
         self.rb_pg = QRadioButton("PG"); self.rb_vg = QRadioButton("VG"); self.rb_none = QRadioButton("N/A")
         self.rb_pg.setChecked(True)
         ar_layout = QHBoxLayout(); ar_layout.addWidget(self.rb_pg); ar_layout.addWidget(self.rb_vg); ar_layout.addWidget(self.rb_none)
         
-        stock_layout.addRow(self.translations[self.current_lang]['shot_str'], self.mg_base)
-        stock_layout.addRow(self.translations[self.current_lang]['shot_ratio'], self.nic_ratio_slider)
+        stock_layout.addRow(self.lbl_shot_str, self.mg_base)
+        stock_layout.addRow(self.lbl_shot_ratio, self.nic_ratio_slider)
         stock_layout.addRow("", self.nic_ratio_label)
-        stock_layout.addRow(self.translations[self.current_lang]['aroma_pct'], self.aroma_pct)
-        stock_layout.addRow(self.translations[self.current_lang]['aroma_base'], ar_layout)
+        stock_layout.addRow(self.lbl_aroma_pct, self.aroma_pct)
+        stock_layout.addRow(self.lbl_aroma_base, ar_layout)
         self.stock_group.setLayout(stock_layout)
         left_panel.addWidget(self.stock_group)
 
@@ -213,14 +222,28 @@ class LiquidLab(QMainWindow):
     def change_lang(self, lang):
         self.current_lang = lang
         t = self.translations[lang]
-        self.setWindowTitle(f"{t.get('title', 'Liquid Lab Pro')} v{self.version}")
+        
+        # Tytuły
+        self.setWindowTitle(f"{t.get('title', 'Liquid Lab')} v{self.version}")
         self.info_group.setTitle(t.get('recipe_info', ''))
-        self.lbl_name.setText(t.get('name', ''))
-        self.lbl_brand.setText(t.get('brand', ''))
         self.target_group.setTitle(t.get('target_params', ''))
         self.stock_group.setTitle(t.get('stock', ''))
+        
+        # Etykiety
+        self.lbl_name.setText(t.get('name', ''))
+        self.lbl_brand.setText(t.get('brand', ''))
+        self.lbl_vol.setText(t.get('vol', ''))
+        self.lbl_strength.setText(t.get('strength', ''))
+        self.lbl_ratio_title.setText(t.get('ratio', ''))
+        self.lbl_shot_str.setText(t.get('shot_str', ''))
+        self.lbl_shot_ratio.setText(t.get('shot_ratio', ''))
+        self.lbl_aroma_pct.setText(t.get('aroma_pct', ''))
+        self.lbl_aroma_base.setText(t.get('aroma_base', ''))
+        
+        # Przyciski
         self.calc_btn.setText(t.get('calc', ''))
         self.save_btn.setText(t.get('save', ''))
+        
         self.update_labels()
 
     def update_labels(self):
@@ -235,12 +258,59 @@ class LiquidLab(QMainWindow):
         self.nic_ratio_label.setText(f"{n_vg}/{100-n_vg}")
 
     def show_about(self):
-        msg = f"<b>{self.translations[self.current_lang]['title']} v{self.version}</b><br><br>"
-        msg += f"Author: {self.author}<br>"
-        msg += f"Web: <a href='http://{self.website}'>{self.website}</a><br>"
-        msg += f"Email: {self.email}<br><br>"
-        msg += "Created for DIY Vapers & Mixing Enthusiasts."
-        QMessageBox.about(self, "About", msg)
+        github_url = "https://github.com/gynsior/liquid-calculator"
+        mail_url = "mailto:gynsior@gmail.com"
+        
+        # Pobieranie ścieżki (bezpieczne dla EXE)
+        if getattr(sys, 'frozen', False):
+            base_path = os.path.dirname(sys.executable)
+            if not os.path.exists(os.path.join(base_path, 'assets', 'icon.ico')):
+                base_path = os.path.dirname(__file__)
+        else:
+            base_path = os.path.dirname(__file__)
+        
+        icon_path = os.path.join(base_path, 'assets', 'icon.ico')
+
+        msg = QMessageBox(self)
+        msg.setWindowTitle("About")
+
+        # Ustawienie natywnej ikony 48x48
+        from PyQt6.QtGui import QIcon
+        if os.path.exists(icon_path):
+            pixmap = QIcon(icon_path).pixmap(128, 128)
+            msg.setIconPixmap(pixmap)
+
+        # Treść HTML z precyzyjnym marginesem od ikony
+        msg_text = (
+            f"<div style='margin-left: 5px;'>"
+            f"<h2 style='margin: 0;'>{self.translations[self.current_lang]['title']} v{self.version}</h2>"
+            f"<p style='color: #555; margin: 3px 0 10px 0;'>{self.author}</p>"
+            f"<hr style='border: 0; border-top: 1px solid #ccc;'>"
+            f"<b>Web:</b> <a href='{github_url}'>GitHub</a><br>"
+            f"<b>Email:</b> <a href='{mail_url}'>gynsior@gmail.com</a><br><br>"
+            f"<i style='font-size: 11px;'>Created for DIY Vapers & Mixing Enthusiasts.</i>"
+            f"</div>"
+        )
+
+        msg.setText(msg_text)
+        msg.setTextFormat(Qt.TextFormat.RichText)
+        msg.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+        
+        # Klucz do sukcesu: Style Sheet, który wyrównuje marginesy okna
+        # margin-right balansuje miejsce zajęte przez ikonę po lewej
+        msg.setStyleSheet("""
+            QLabel#qt_msgbox_label { 
+                padding-left: 10px;
+                padding-right: 20px;
+                min-width: 300px;
+            }
+            QPushButton {
+                min-width: 80px;
+                padding: 5px;
+            }
+        """)
+        
+        msg.exec()
 
     def calculate(self):
         try:

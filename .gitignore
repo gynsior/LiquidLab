@@ -6,6 +6,7 @@ venv312/
 *.dist/
 *.onefile-build/
 nuitka-crash-report.xml
+*.bat
 
 # Plik wykonywalny (EXE wrzucimy osobno w Releases)
 *.exe
