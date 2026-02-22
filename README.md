@@ -22,19 +22,9 @@ Jeśli nie chcesz uruchamiać kodu źródłowego, gotowy plik `.exe` znajdziesz 
 
 ## 🔧 Instalacja i uruchomienie
 1. Upewnij się, że masz zainstalowanego Pythona (zalecany 3.10+).
-2. Sklonuj repozytorium:
-Bash
-git clone [https://github.com/gynsior/liquid-calculator.git](https://github.com/gynsior/liquid-calculator.git)
-
-Zainstaluj wymagane biblioteki:
-
-Bash
-pip install -r requirements.txt
-
-Uruchom aplikację:
-
-Bash
-python liquid.pyw
+2. Sklonuj repozytorium: `git clone https://github.com/gynsior/liquid-calculator.git
+3. Zainstaluj wymagane biblioteki: `pip install -r requirements.txt
+4. Uruchom aplikację: `python liquid.pyw
 
 ## 👨‍💻 Autor
 GitHub: [@gynsior](https://github.com/gynsior)
