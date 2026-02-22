@@ -15,16 +15,11 @@ Aplikacja desktopowa do precyzyjnego obliczania proporcji składników przy twor
 ## 📦 Pobieranie (Gotowy Program)
 Jeśli nie chcesz uruchamiać kodu źródłowego, gotowy plik `.exe` znajdziesz w sekcji **[Releases](https://github.com/gynsior/liquid-calculator/releases)** po prawej stronie repozytorium.
 
-## 🔧 Uruchamianie z kodu źródłowego
-1. Sklonuj repozytorium: `git clone https://github.com/gynsior/liquid-calculator.git`
-2. Zainstaluj wymagane biblioteki: `pip install PyQt6`
-3. Uruchom: `python main.py`
-
 ## 🔧 Instalacja i uruchomienie
 1. Upewnij się, że masz zainstalowanego Pythona (zalecany 3.10+).
-2. Sklonuj repozytorium: `git clone https://github.com/gynsior/liquid-calculator.git
-3. Zainstaluj wymagane biblioteki: `pip install -r requirements.txt
-4. Uruchom aplikację: `python liquid.pyw
+2. Sklonuj repozytorium: `git clone https://github.com/gynsior/liquid-calculator.git`
+3. Zainstaluj wymagane biblioteki: `pip install -r requirements.txt`
+4. Uruchom aplikację: `python liquid.pyw`
 
 ## 👨‍💻 Autor
 GitHub: [@gynsior](https://github.com/gynsior)
